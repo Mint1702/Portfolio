@@ -256,23 +256,24 @@ particleStyle.textContent = `
 
 document.head.appendChild(particleStyle);
 
-//scroll button
+// Scroll to top button
 
 const scrollToTopBtn = document.getElementById('scrollToTopBtn');
 
-    // Show/hide button on scroll
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) { // Show button after scrolling 300px down
+        if (window.scrollY > 300) {
             scrollToTopBtn.classList.add('show');
         } else {
             scrollToTopBtn.classList.remove('show');
         }
     });
 
-    // Smooth scroll to top on click
     scrollToTopBtn.addEventListener('click', () => {
         window.scrollTo({
             top: 0,
-            behavior: 'smooth' // Smooth scrolling effect
+            behavior: 'smooth'
         });
     });
+
+    // Dynamic copyright year
+    document.getElementById('current-year').textContent = new Date().getFullYear();
