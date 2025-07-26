@@ -15,7 +15,23 @@ themeToggle.addEventListener('click', () => {
   html.setAttribute('data-theme', newTheme);
   localStorage.setItem('theme', newTheme);
   updateThemeIcon(newTheme);
+  updateNavbarBackground(); // Update navbar background immediately
 });
+
+// Function to update navbar background based on theme and scroll position
+function updateNavbarBackground() {
+  const navbar = document.querySelector('.navbar');
+  if (!navbar) return;
+  if (window.scrollY > 50) {
+    navbar.style.background = html.getAttribute('data-theme') === 'dark' 
+      ? 'rgba(15, 23, 42, 0.98)' 
+      : 'rgba(255, 255, 255, 0.98)';
+  } else {
+    navbar.style.background = html.getAttribute('data-theme') === 'dark' 
+      ? 'rgba(15, 23, 42, 0.95)' 
+      : 'rgba(255, 255, 255, 0.95)';
+  }
+}
 
 function updateThemeIcon(theme) {
   themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
@@ -38,20 +54,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
   });
 });
 
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      const offsetTop = target.offsetTop - 70; // Account for fixed navbar
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth'
-      });
-    }
-  });
-});
+window.addEventListener('scroll', updateNavbarBackground);
 
 // Navbar background on scroll
 window.addEventListener('scroll', () => {
